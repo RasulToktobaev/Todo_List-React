@@ -1,0 +1,61 @@
+.todo__block{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5%;
+  &-title{
+    color: firebrick;
+    font-size: 40px;
+    font-family: Tahoma, sans-serif;
+  }
+  &-list{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  &-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+  }
+  &-input{
+    padding: 3px 30px;
+    border: 2px solid gold;
+    font-size: 14px;
+  }
+  &-btn{
+    padding: 5px 25px;
+    cursor: pointer;
+    border: none;
+    font-size: 16px;
+    background: red;
+    color: white;
+    border-radius: 10px;
+  }
+  &-btn:hover{
+    background: chartreuse;
+  }
+}
+
+.item__delete{
+  display: flex;
+  column-gap: 20px;
+  flex-direction: row;
+  margin-bottom: 10px;
+  &-btn{
+    cursor: pointer;
+    border: none;
+    padding: 8px 20px;
+    font-size: 14px;
+    background: teal;
+    color: black;
+    border-radius: 10px;
+  }
+  &-text{
+    color: coral;
+    font-size: 18px;
+    font-family: Calibri, sans-serif;
+  }
+}
