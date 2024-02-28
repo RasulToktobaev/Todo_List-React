@@ -3,10 +3,13 @@ import React, {useState} from "react";
 import TodoList from "./components/TodoList/TodoList";
 import TaskInput from "./components/TaskInput/TaskInput";
 import TaskList from "./components/TaskList/TaskList";
-
+import { v4 as uuidv4 } from 'uuid';
+import TaskStatus from "./components/TaskStatus/TaskStatus";
+import {ChakraProvider} from "@chakra-ui/react";
 
 function App() {
     const [tasks, setTasks] = useState([])
+    const [status, setStatus] = useState('all')
 
     const addTask = (text) => {
 
@@ -19,8 +22,10 @@ function App() {
 
     if(text.trim() !== ''){
         const newTask = {
-            id:Math.ceil(Math.random() * 99999),
+            id:uuidv4(),
             text:text,
+            isDone:false,
+            isImportant:false
         };
         setTasks((prevTasks) => [...prevTasks, newTask])
     }else {
@@ -33,11 +38,15 @@ function App() {
     }
 
     return (
-        <div className="App">
-            <TodoList/>
-            <TaskInput onAddTask={addTask}/>
-            <TaskList tasks={tasks} onRemoveTask={removeTask}/>
-        </div>
+        <ChakraProvider>
+            <div className="App">
+                <TodoList/>
+                <TaskInput onAddTask={addTask}/>
+                <TaskStatus status={status} setStatus={setStatus}/>
+                <TaskList status={status} setTasks={setTasks} tasks={tasks} onRemoveTask={removeTask}/>
+            </div>
+        </ChakraProvider>
+
     );
 }
 
