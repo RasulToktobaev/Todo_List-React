@@ -18,29 +18,36 @@ import {useDisclosure} from "@chakra-ui/react";
 import {editHandler} from "../../taskService/taskService";
 
 const EditModal = ({text, id, setTasks}) => {
-    const { isOpen, onOpen, onClose } = useDisclosure()
+    const {isOpen, onOpen, onClose} = useDisclosure()
 
-    const [changeText, setChangeText] = useState(text)
+    const [currentText, setCurrentText] = useState(text)
+
+    const handleChangeText = (e) => setCurrentText(e.target.value)
+
+    const onSave = () => editHandler(id, currentText, setTasks, onClose)
+
 
     return (
         <>
             <button onClick={onOpen}><EditIcon/></button>
 
             <Modal isOpen={isOpen} onClose={onClose}>
-                <ModalOverlay />
+                <ModalOverlay/>
                 <ModalContent>
                     <ModalHeader>Изменить название задачи</ModalHeader>
-                    <ModalCloseButton />
+                    <ModalCloseButton/>
                     <ModalBody pb={6}>
                         <FormControl>
                             <FormLabel>Название</FormLabel>
-                            <Input value={changeText} placeholder='Название задачи' onChange={(e) => setChangeText(e.target.value)} />
+                            <Input value={currentText}
+                                   placeholder='Название задачи'
+                                   onChange={handleChangeText}/>
                         </FormControl>
 
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button onClick={() => editHandler(id, changeText, setTasks, onClose)} colorScheme='blue' mr={3}>
+                        <Button onClick={onSave} colorScheme='blue' mr={3}>
                             Save
                         </Button>
                         <Button onClick={onClose}>Cancel</Button>
