@@ -40,7 +40,14 @@ function App() {
     }
 
     const deleteTasks = () => {
-        setTasks((prevTasks) => prevTasks.filter((task) => task.isDone && task.isImportant === ''))
+        switch (status) {
+            case 'important':
+                return setTasks((prev) => prev.filter((item) => !item.isImportant))
+            case 'done' :
+                return setTasks((prev) => prev.filter((item) => !item.isDone))
+            default:
+                return setTasks([])
+        }
     }
 
 
@@ -55,8 +62,8 @@ function App() {
             />
             <div className='delete__status'>
                 <Button onClick={deleteTasks} className='delete__status-btn'>Delete all tasks
-                    with {status} status</Button>
-                <DeleteIcon/>
+                    with {status} status<DeleteIcon/></Button>
+
             </div>
         </ChakraProvider>
 

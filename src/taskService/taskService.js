@@ -13,8 +13,14 @@ export const importantHandler = (id, setTasks) => {
             return {...item, isImportant: !item.isImportant}
         }
         return item
-    }))
+    }).reduce((acc, rec) => {
+        if (rec.isImportant) {
+            return [rec, ...acc]
+        }
+        return [...acc, rec]
+    }, []))
 }
+
 
 export const editHandler = (id, text, setTasks, onClose) => {
     setTasks((prev) => prev.map((item) => {
