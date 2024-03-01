@@ -31,3 +31,7 @@ export const editHandler = (id, text, setTasks, onClose) => {
     }))
     onClose()
 }
+
+export const addLocalStorage = (tasks) => {
+    localStorage.setItem('tasks', JSON.stringify(tasks))
+}
