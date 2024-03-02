@@ -8,9 +8,13 @@ import TaskStatus from "./components/TaskStatus/TaskStatus";
 import {ChakraProvider} from "@chakra-ui/react";
 import {Button} from "@chakra-ui/react";
 import {DeleteIcon} from "@chakra-ui/icons";
-import {addLocalStorage} from "./taskService/taskService";
+import {addImportantStorage, addLocalStorage} from "./taskService/taskService";
+import TodoContext from "./provaiders/TodoContext";
+import {TodoContextProvider} from "./provaiders/TodoContext";
+
 
 function App() {
+
     const [tasks, setTasks] = useState([])
     const [status, setStatus] = useState('all')
 
@@ -25,8 +29,20 @@ function App() {
         addLocalStorage(tasks)
     }, [tasks])
 
-    const addTask = (text) => {
+    useEffect(() => {
+        if(status === 'important'){
+            setStatus(JSON.parse(localStorage.getItem('tasks')))
+        }
+    },[])
 
+    useEffect(() => {
+        addImportantStorage(tasks)
+    }, [tasks])
+
+
+
+
+    const addTask = (text) => {
         const isInclude = tasks.some((task) => task.text === text)
 
         if (isInclude) {
@@ -67,18 +83,21 @@ function App() {
 
     return (
         <ChakraProvider>
-            <TodoList/>
-            <TaskInput onAddTask={addTask}/>
-            <TaskStatus status={status} setStatus={setStatus}/>
-            <TaskList status={status}
-                      setTasks={setTasks} tasks={tasks}
-                      onRemoveTask={removeTask}
-            />
-            <div className='delete__status'>
-                <Button onClick={deleteTasks} className='delete__status-btn'>Delete all tasks
-                    with {status} status<DeleteIcon/></Button>
+            <TodoContext>
+                <TodoList/>
+                <TaskInput onAddTask={addTask}/>
+                <TaskStatus status={status} setStatus={setStatus}/>
+                <TaskList status={status}
+                          setTasks={setTasks}
+                          tasks={tasks}
+                          onRemoveTask={removeTask}
+                />
+                <div className='delete__status'>
+                    <Button onClick={deleteTasks} className='delete__status-btn'>Delete all tasks
+                        with {status} status<DeleteIcon/></Button>
 
-            </div>
+                </div>
+            </TodoContext>
         </ChakraProvider>
 
     );

@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {CheckIcon, EditIcon, InfoIcon} from "@chakra-ui/icons";
 import {doneHandler, importantHandler} from "../../taskService/taskService";
 import EditModal from "./EditModal";
 
+
 const TaskItem = ({task, onRemoveTask, setTasks}) => {
+
     return (
         <li className='item__delete'>
 

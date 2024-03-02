@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {useContext} from 'react';
 
 const TaskInput = ({onAddTask}) => {
+
     const onFinish = (e) => {
         e.preventDefault();
         const input = e.target.label
         const inputValue = input.value
-        onAddTask(inputValue)
+        onAddTask (inputValue)
         input.value = ''
     }
 
@@ -18,3 +19,5 @@ const TaskInput = ({onAddTask}) => {
 };
 
 export default TaskInput;
+
+
